@@ -6,9 +6,11 @@ RUN apt-get update && apt-get install -y systemd gnupg2 && \
     apt-get update && \
     apt-get install -y mongodb-org && \
     sed -i 's/bindIp/# bindIp/g' /etc/mongod.conf && \
-    mkdir -p /home/core
-
-COPY mongodb-keyfile /home/core/mongodb-keyfile
+    mkdir -p /home/core && \
+    cd /home/core && \
+    openssl rand -base64 741 > mongodb-keyfile && \
+    chmod 600 mongodb-keyfile && \
+    chown 999 mongodb-keyfile
 
 # Define mountable directories.
 VOLUME ["/data/db"]

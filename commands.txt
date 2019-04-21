@@ -1,3 +1,6 @@
 apt install -y mongodb-clients
 docker build --no-cache -t alulema/mongodb -f Dockerfile-mongodb .
-docker run --rm -p 27017:27017 -v /tmp/data:/data/db alulema/mongodb
+
+docker network create --driver bridge mongonet
+docker run --name sharding1 --network=mongonet --rm -p 27017:27017 -v /tmp/data:/data/db alulema/mongodb
+docker run --name sharding2 --network=mongonet --rm -p 27017:27017 -v /tmp/data:/data/db alulema/mongodb
