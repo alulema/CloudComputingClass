@@ -1,2 +1,4 @@
 mongodb-keyfile
 countries.json*
+*.pem
+cc-project-aws/.idea/
